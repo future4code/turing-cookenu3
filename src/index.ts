@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { AddressInfo } from 'net';
+import { getRecipe } from './endpoints/getRecipe';
 import { login } from './endpoints/Login';
 import { newRecipe } from './endpoints/newRecipe';
 import { signUp } from './endpoints/signup';
@@ -18,6 +19,9 @@ app.post('/recipe', newRecipe);
 
 //faz login
 app.post('/login', login);
+
+//Pegar receita
+app.get('/recipe/:id', getRecipe);
 
 const server = app.listen(process.env.PORT || 3000, () => {
   if (server) {
