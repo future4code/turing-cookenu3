@@ -22,29 +22,24 @@ export const signUp = async (req: Request, res: Response) => {
     }
     const idGenerator = new IdGenerator();
     const id = idGenerator.generateId();
-  
+
     const hashManager = new HashManager();
     const hashPassword = await hashManager.hash(password);
-  
+
     const userDataBase = new UserDatabase();
-    await userDataBase.registerUser(
-      id,
-      name,
-      email,
-      hashPassword
-    );
-  
+    await userDataBase.registerUser(id, name, email, hashPassword);
+
     const authenticator = new Authenticator();
-    const token = authenticator.generateToken({id});
-  
+    const token = authenticator.generateToken({ id });
+
     res.status(200).send({
       message: 'Usuário criado com sucesso',
-      token
+      token,
     });
-    } catch (e) {
+  } catch (e) {
     res.status(400).send({
-      message: e.message
-    })
-    }
-    await BaseDatabase.destroyConnection();
-  };
+      message: e.message,
+    });
+  }
+  await BaseDatabase.destroyConnection();
+};
