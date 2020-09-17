@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { AddressInfo } from 'net';
+import { login } from './endpoints/Login';
 import { newRecipe } from './endpoints/newRecipe';
 import { signUp } from './endpoints/signup';
 
@@ -9,14 +10,14 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-
 //Criar usuário
 app.post('/signup', signUp);
 
 //Criar receita
 app.post('/recipe', newRecipe);
 
-
+//faz login
+app.post('/login', login);
 
 const server = app.listen(process.env.PORT || 3000, () => {
   if (server) {
